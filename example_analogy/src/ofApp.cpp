@@ -5,7 +5,7 @@ void ofApp::setup(){
 	cout << "Example using word2vec, which computes words ariphmetics such as X - Y + Z = ?" << endl;
 	string file_name = "vec_text8.bin";
 	cout << "Loading embeddings file: " << file_name << endl;
-	embed.load_binary("vec_text8.bin");
+	embed.load_binary(file_name);
 
 	cout << "words: " << embed.words << endl;
 	cout << "dimensions: " << embed.size << endl;
