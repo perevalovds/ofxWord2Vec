@@ -1,5 +1,14 @@
 #include "ofxWord2VecVector.h"
 
+//--------------------------------------------------------------
+ofxWord2VecVector::ofxWord2VecVector() {
+
+}
+
+//--------------------------------------------------------------
+ofxWord2VecVector::ofxWord2VecVector(int size) {		//create vector allocated with its own memory
+	allocate(size);
+}
 
 //--------------------------------------------------------------
 void ofxWord2VecVector::allocate(int size) {
@@ -42,4 +51,61 @@ void ofxWord2VecVector::update_normalized() {
 }
 
 //--------------------------------------------------------------
+//set fixed value
+void ofxWord2VecVector::set(float value, bool auto_update_normalized) {
+	for (int i = 0; i < size; i++) {
+		v[i] = value;
+	}
+	if (auto_update_normalized) update_normalized();
+}
 
+//--------------------------------------------------------------
+//multiply on scalar
+void ofxWord2VecVector::multiply(float value, bool auto_update_normalized) {
+	for (int i = 0; i < size; i++) {
+		v[i] *= value;
+	}
+	if (auto_update_normalized) update_normalized();
+}
+
+//--------------------------------------------------------------
+//adding with weight
+void ofxWord2VecVector::add(const ofxWord2VecVector &vec, float weight, bool auto_update_normalized) {
+	for (int i = 0; i < size; i++) {
+		v[i] += vec.v[i] * weight;
+	}
+	if (auto_update_normalized) update_normalized();
+}
+
+//--------------------------------------------------------------
+//dot multiplication of original vectors
+double ofxWord2VecVector::dot(const ofxWord2VecVector &vec) {
+	double res = 0;
+	for (int i = 0; i < size; i++) {
+		res += v[i] * vec.v[i];
+	}
+	return res;
+}
+
+//--------------------------------------------------------------
+//cosine distance, applied to normalized vectors, so they must be updated before using this
+double ofxWord2VecVector::dist_cosine_optimized(const ofxWord2VecVector &vec) {
+	double res = 0;
+	for (int i = 0; i < size; i++) {
+		res += vn[i] * vec.vn[i];
+	}
+	return res;
+}
+
+//--------------------------------------------------------------
+void ofxWord2VecVector::print_console(string title, string postscript, int precision) {
+	cout << title;
+	for (int i = 0; i < size; i++) {
+		if (i > 0) cout << " ";
+		cout << ofToString(v[i], precision);
+	}
+	cout << endl;
+	cout << postscript << endl;
+}
+
+//--------------------------------------------------------------

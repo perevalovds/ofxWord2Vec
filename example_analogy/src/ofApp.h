@@ -6,6 +6,7 @@
 //we use non-normalized word vectors for arithmetics (it's difference with analogy.c)
 
 #include "ofMain.h"
+#include "ofxWord2Vec.h"
 
 class ofApp : public ofBaseApp {
 
@@ -25,5 +26,7 @@ public:
 	void windowResized(int w, int h);
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
+
+	ofxWord2VecEmbedding embed;
 
 };

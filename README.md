@@ -12,17 +12,20 @@ The addon is inspired by the great addon ofxMSAWord2Vec by Memo Akten,
 but implemented on pure C/C++.
 
 
+## Features
 
-## Features:
+* It uses only openFrameworks; no Python, ML libraries or other addons are required.
 
-* It uses only openFrameworks; no Python or any ML libraries.
+* It allows to train and use word embeddings directly from openFrameworks project.
 
-* It works very fast.
+* It works on CPU; it's fast.
 
-* It allows to train and work with word embeddings from openFrameworks.
 
 ## Examples
 
-* example_analogy - this example loads binary word vectors and allows
-to compute X - Y + Z = ?
-It uses vec_text8.bin embeddings vectors obtained in the way as described in original_code/demo-analogy.sh
+* example_analogy - it's ready-to-use example which works with words arithmetic.
+It allows to find nearest words to the combinations of words separated by ' + '  and ' - ',
+such as 'man - animal'. You can use any number of words in equation.
+
+Example shipped with vec_text8.bin embeddings vectors obtained in the way described in original_code/demo-analogy.sh
+
