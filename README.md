@@ -9,7 +9,7 @@ It's based on native C Google code:
 * https://code.google.com/archive/p/word2vec/ 
 
 The addon is inspired by the great addon ofxMSAWord2Vec by Memo Akten, 
-but with training implemented on C/C++.
+but faster and with training implemented on C/C++ (TODO, currently training is on C, but in base_code folder).
 
 
 ## Features
