@@ -165,13 +165,50 @@ vector<ofxWord2VecEmbeddingMatch> ofxWord2VecEmbedding::match_cos(const ofxWord2
 				for (int d = count - 1; d > a; d--) {
 					match[d] = match[d - 1];
 				}
-				match[a] = ofxWord2VecEmbeddingMatch(vocab[i], dist);
+				match[a] = ofxWord2VecEmbeddingMatch(vocab[i], dist, i);
 				break;
 			}
 		}
 	}
 
 	return match;
+}
+
+//--------------------------------------------------------------
+vector<ofxWord2VecEmbeddingMatch> ofxWord2VecEmbedding::match_worst_cos(const ofxWord2VecVector &v, int count,
+	const vector<int> &except_words) {
+
+	vector<ofxWord2VecEmbeddingMatch> worst(count);
+	for (auto &w : worst) {
+		w.conf = 2;
+	}
+
+	for (int i = 0; i < words; i++) {
+		//check if this word is allowable (not in 'except_words' array)
+		bool allow = true;
+		for (int j = 0; j < except_words.size(); j++) {
+			if (i == except_words[j]) {
+				allow = false;
+				break;
+			}
+		}
+		if (!allow) continue;
+
+		//compute distance and compare with matched
+		float dist = vec[i].dist_cosine_optimized(v);
+
+		for (int a = 0; a < count; a++) {
+			if (dist < worst[a].conf) {
+				for (int d = count - 1; d > a; d--) {
+					worst[d] = worst[d - 1];
+				}
+				worst[a] = ofxWord2VecEmbeddingMatch(vocab[i], dist, i);
+				break;
+			}
+		}
+	}
+
+	return worst;
 }
 
 //--------------------------------------------------------------

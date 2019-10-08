@@ -111,7 +111,7 @@ void ofApp::setup(){
 
 		int count = 5;
 		
-		vector<ofxWord2VecEmbeddingMatch> match = embed.match_cos(Vec, 5, used_indices);
+		vector<ofxWord2VecEmbeddingMatch> match = embed.match_cos(Vec, count, used_indices);
 		cout << "Result:" << endl;
 		for (int i = 0; i < match.size(); i++) {
 			cout << "    " << match[i].word << ": " << match[i].conf << endl;

@@ -8,11 +8,13 @@
 //result for matching
 struct ofxWord2VecEmbeddingMatch {
 	string word;		//word name
+	int index = -1;		//word index
 	float conf = -2;	//confidence [-1..1]
 	ofxWord2VecEmbeddingMatch() {}
-	ofxWord2VecEmbeddingMatch(string word, float conf) {
+	ofxWord2VecEmbeddingMatch(string word, float conf, int index) {
 		this->word = word;
 		this->conf = conf;
+		this->index = index;
 	}
 
 };
@@ -41,8 +43,12 @@ struct ofxWord2VecEmbedding {
 	int find_case_sensitive(const string &word);
 	int find_case_insensitive(const string &word);
 
-	//find best mathing words to a given vector in cosine distance
+	//find best matching words to a given vector in cosine distance
 	vector<ofxWord2VecEmbeddingMatch> match_cos(const ofxWord2VecVector &v, int count,
+		const vector<int> &except_words = vector<int>());
+
+	//find worst matching words to a given vector in cosine distance
+	vector<ofxWord2VecEmbeddingMatch> match_worst_cos(const ofxWord2VecVector &v, int count,
 		const vector<int> &except_words = vector<int>());
 
 protected:
