@@ -4,6 +4,7 @@
 void ofApp::setup(){
 	cout << "Example using word2vec, which computes words ariphmetics such as X - Y + Z = ?" << endl;
 	string file_name = "vec_text8.bin";
+		
 	cout << "Loading embeddings file: " << file_name << endl;
 	embed.load_binary(file_name);
 
@@ -19,7 +20,7 @@ void ofApp::setup(){
 	cout << endl;
 	cout << "Enter any number or words separated by ' + ' and ' - ', they will be treated as X-Y+Z... Type EXIT to break" << endl;
 	cout << "For example, type 'man + animal'" << endl;
-	//Note: in original version it was -X + Y + Z!
+	cout << "(Also, man + animal * god returns cosine distance between 'man + animal' and 'god'); the last arg must be one word" << endl;
 	
 	while (1) {
 		cout << ">> ";
@@ -50,7 +51,9 @@ void ofApp::setup(){
 
 		//search words in vocabulary and summing to 'vec'
 		int ok = 1;
-		int oper = 1;
+		int oper = 1;		//1 - "+", 0 - "-"
+		int dot = 0;	    //1 means dot product
+		float dot_result = 0;
 
 		vector<int> used_indices;	//placeholder for found words - later we will except them from the search
 
@@ -64,6 +67,10 @@ void ofApp::setup(){
 				oper = -1;
 				continue;
 			}
+			if (token == "*") {
+				dot = 1;
+				continue;
+			}
 			int index = embed.find_case_sensitive(token);
 			if (index == -1) {
 				cout << "Unknown word '" << token << "'" << endl;
@@ -71,13 +78,19 @@ void ofApp::setup(){
 				break;
 			}
 
-			//add to vector
-			Vec.add(embed.vec[index], oper, false);
-			//store found index
-			used_indices.push_back(index);
-			//set operation to "+"
-			oper = 1;
-
+			if (!dot) {
+				//add to vector
+				Vec.add(embed.vec[index], oper, false);
+				//store found index
+				used_indices.push_back(index);
+				//set operation to "+"
+				oper = 1;
+			}
+			else {
+				//perform dist_cos multiplication
+				Vec.update_normalized();
+				dot_result = Vec.dist_cosine_optimized(embed.vec[index]);
+			}
 		}
 		if (!ok) continue;
 
@@ -86,6 +99,13 @@ void ofApp::setup(){
 
 		//Print resulted (unnormalized) vector
 		Vec.print_console("------------------\n", "---------------------");
+
+		//Request for dot, it's already stored in dot_result
+		if (dot) {
+			cout << "dist_cos: " << dot_result << endl;
+			continue;
+		}
+
 
 		//Search resulted words in neighbourhood
 
