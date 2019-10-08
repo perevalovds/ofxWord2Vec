@@ -9,7 +9,7 @@ It's based on native C Google code:
 * https://code.google.com/archive/p/word2vec/ 
 
 The addon is inspired by the great addon ofxMSAWord2Vec by Memo Akten, 
-but implemented on pure C/C++.
+but with training implemented on C/C++.
 
 
 ## Features
@@ -27,5 +27,5 @@ but implemented on pure C/C++.
 It allows to find nearest words to the combinations of words separated by ' + '  and ' - ',
 such as 'man - animal'. You can use any number of words in equation.
 
-Example shipped with vec_text8.bin embeddings vectors obtained in the way described in original_code/demo-analogy.sh
+Example is shipped with vec_text8.bin embeddings vectors obtained in the way described in base_code/demo-analogy.sh
 

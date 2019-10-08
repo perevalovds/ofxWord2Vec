@@ -25,6 +25,7 @@ void ofxWord2VecVector::allocate(int size) {
 void ofxWord2VecVector::bind(float *pointer_v, float *pointer_vn, int size) {
 	v = pointer_v;
 	vn = pointer_vn;
+	this->size = size;
 }
 
 //--------------------------------------------------------------
