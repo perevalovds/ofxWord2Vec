@@ -75,6 +75,8 @@ void ofApp::setup(){
 			Vec.add(embed.vec[index], oper, false);
 			//store found index
 			used_indices.push_back(index);
+			//set operation to "+"
+			oper = 1;
 
 		}
 		if (!ok) continue;
