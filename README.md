@@ -2,6 +2,15 @@
 
 ofxWord2Vec is an openFrameworks addon for working with word2vec embedding.
 
+It includes example 'example_analogy' which you can run out-the-box and play with word arithmetics,
+such as the following:
+
+* 'god - man'
+
+* 'king - man + woman'
+
+and so on!
+
 It's based on native C Google code:
 
 * https://github.com/perevalovds/word2vec-win32 (forked from zhangyafeikimi/word2vec-win32)
