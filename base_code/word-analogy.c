@@ -67,6 +67,16 @@ int main(int argc, char **argv) {
     for (a = 0; a < size; a++) len += M[a + b * size] * M[a + b * size];
     len = sqrt(len);
     for (a = 0; a < size; a++) M[a + b * size] /= len;
+	
+
+	//Note:	
+	//here is normalization of input vectors 'M'. 
+	//It's not ok, because (following ofxMSAWord2Vec addon's text my Memo Akten) 
+	//we must  combine unnormalized vectors. 
+	//As a result, it's not so good in combining vectors (king - man + woman).
+	//So, please see my addon https://github.com/perevalovds/ofxWord2Vec which contains fixed example_analogy.
+
+	
   }
   fclose(f);
   while (1) {

@@ -1,7 +1,3 @@
-Here is code from https://github.com/perevalovds/word2vec-win32 forked from zhangyafeikimi/word2vec-win32
-which is based on https://code.google.com/p/word2vec/.
-
-
 # Tools for computing distributed representtion of words
 
 We provide an implementation of the Continuous Bag-of-Words (CBOW) and the Skip-gram model (SG), 
@@ -24,6 +20,18 @@ After the training is finished, the user can interactively explore the similarit
 ## Original code
 
 More information about the scripts is provided at https://code.google.com/p/word2vec/
+
+## Notes on examples
+
+(by perevalovds)
+
+* word-analogy example treats three words typed by user as X - Y + Z.
+But, currently it works with normalized input vectors 'M'. It's not ok, 
+because (following ofxMSAWord2Vec addon's text my Memo Akten) we must 
+combine unnormalized vectors. As a result, it's not so good in combining
+vectors (king - man + woman).
+
+So, please see my addon https://github.com/perevalovds/ofxWord2Vec which contains fixed example_analogy.
 
 ## Python wrapper
 In order to get Python wrapper (https://github.com/danielfrg/word2vec) working 
