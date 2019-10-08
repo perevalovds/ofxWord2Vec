@@ -1,6 +1,6 @@
 # ofxWord2Vec
 
-ofxWord2Vec is an addon for openframeworks, which implements word2vec word embedding in C++, 
+ofxWord2Vec is an addon for openframeworks, which implements word2vec word implekemted in pure C++, 
 with ready-to-use example for computing word arithmetics such as 
 
 'king - man + woman'
