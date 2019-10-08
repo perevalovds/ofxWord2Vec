@@ -68,7 +68,9 @@ void ofApp::setup(){
 			if (index == -1) {
 				cout << "Unknown word '" << token << "'" << endl;
 				ok = 0;
+				break;
 			}
+
 			//add to vector
 			Vec.add(embed.vec[index], oper, false);
 			//store found index
