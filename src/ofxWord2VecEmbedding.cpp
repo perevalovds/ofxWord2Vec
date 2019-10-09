@@ -61,8 +61,8 @@ bool ofxWord2VecEmbedding::load_binary(string file_name, bool speedup_word_searc
 	//Reading file
 
 	//buffer for reading word name
-	const int max_len = 50;
-	char word[max_len];
+	const int max_len = 100;
+	char word[max_len + 1];
 
 	for (int i = 0; i < words; i++) {
 		//Read word name

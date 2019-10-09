@@ -46,6 +46,9 @@ struct ofxWord2VecVector {
 	//cosine distance, applied to normalized vectors, so they must be updated before using this
 	double dist_cosine_optimized(const ofxWord2VecVector &vec);
 
+	//L2 distance
+	double dist_L2(const ofxWord2VecVector &vec);
+
 	//Utilities ------------------------------------------
 	void print_console(string title, string postscript="", int precision = 2);
 

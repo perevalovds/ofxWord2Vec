@@ -99,6 +99,18 @@ double ofxWord2VecVector::dist_cosine_optimized(const ofxWord2VecVector &vec) {
 }
 
 //--------------------------------------------------------------
+//L2 distance
+double ofxWord2VecVector::dist_L2(const ofxWord2VecVector &vec) {
+	double res = 0;
+	float u;
+	for (int i = 0; i < size; i++) {
+		u = v[i] - vec.v[i];
+		res += u * u;
+	}
+	return sqrt(res);
+}
+
+//--------------------------------------------------------------
 void ofxWord2VecVector::print_console(string title, string postscript, int precision) {
 	cout << title;
 	for (int i = 0; i < size; i++) {

@@ -2,7 +2,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-	cout << "Example using word2vec, which computes words ariphmetics such as X - Y + Z = ?" << endl;
+	cout << "Example using word2vec, which computes words arithmetics such as X - Y + Z = ?" << endl;
 	string file_name = "vec_text8.bin";
 		
 	cout << "Loading embeddings file: " << file_name << endl;
@@ -17,10 +17,11 @@ void ofApp::setup(){
 	cout << endl;
 
 	//Dialog
-	cout << endl;
-	cout << "Enter any number or words separated by ' + ' and ' - ', they will be treated as X-Y+Z... Type EXIT to break" << endl;
-	cout << "For example, type 'man + animal'" << endl;
-	cout << "(Also, man + animal * god returns cosine distance between 'man + animal' and 'god'); the last arg must be one word" << endl;
+	cout << "Usage:" << endl;
+	cout << "Word arithmetics: enter any number or words separated by ' + ' and ' - '" << endl;
+	cout << "   For example, type 'king - man + woman' or 'bird'" << endl;
+	cout << "Word distance: 'man + animal * god' returns cosine distance between 'man + animal' and 'god'" << endl;
+	cout << "EXIT - break" << endl;
 	
 	while (1) {
 		cout << ">> ";
