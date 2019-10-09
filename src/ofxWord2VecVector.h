@@ -5,6 +5,7 @@
 #include "ofMain.h"
 
 struct ofxWord2VecVector {
+
 	int size = 0;
 	float *v = 0;	//pointer to raw vector
 	float *vn = 0;	//pointer to normalized vector
@@ -15,6 +16,8 @@ struct ofxWord2VecVector {
 
 	//allocate memory
 	void allocate(int size);
+
+	bool empty() { return size == 0; }
 
 	//bind to existing array - very efficient way working with huge number of vectors
 	//Note: array must exist all time the vector is used

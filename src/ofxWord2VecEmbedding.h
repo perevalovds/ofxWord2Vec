@@ -37,6 +37,13 @@ struct ofxWord2VecEmbedding {
 	vector<string> vocab;		//vocabulary
 
 	//Operations ------------------------------------------------
+	//returns vector corresponding the arithmetics of words,
+	//using " + " and " - ", such as 'bird', 'king - man + woman'
+	//on error - returns empty vector (size==0)
+	//used_indices - pass it if you need to know which words where used
+	ofxWord2VecVector words_to_vec(const string &sentence, vector<int> *used_indices = 0);
+
+
 	//search words in vocabulary, -1 means no word found
 	//case insensitive - Note: it applies only to search,
 	//but actually there are can be several words with the same name
@@ -50,6 +57,7 @@ struct ofxWord2VecEmbedding {
 	//find worst matching words to a given vector in cosine distance
 	vector<ofxWord2VecEmbeddingMatch> match_worst_cos(const ofxWord2VecVector &v, int count,
 		const vector<int> &except_words = vector<int>());
+
 
 protected:
 	bool speedup_word_search = false;

@@ -20,13 +20,12 @@ void ofApp::setup(){
 	cout << "Usage:" << endl;
 	cout << "Word arithmetics: enter any number or words separated by ' + ' and ' - '" << endl;
 	cout << "   For example, type 'king - man + woman' or 'bird'" << endl;
-	cout << "Word distance: 'man + animal * god' returns cosine distance between 'man + animal' and 'god'" << endl;
 	cout << "EXIT - break" << endl;
 	
 	while (1) {
 		cout << ">> ";
+		//read input string from keyboard
 		string s;
-		//read input data
 		while (1) {
 			char c = fgetc(stdin);
 			if (c == '\n') {
@@ -42,80 +41,22 @@ void ofApp::setup(){
 			break;
 		}
 
-		vector<string> tokens = ofSplitString(s, " ");
-		if (tokens.empty()) {
-			cout << "Please type something" << endl;
-			continue;
-		}
+		//get linear combination of words
+		vector<int> used_indices;
+		ofxWord2VecVector Vec = embed.words_to_vec(s, &used_indices);
 
-		ofxWord2VecVector Vec(embed.size);
-
-		//search words in vocabulary and summing to 'vec'
-		int ok = 1;
-		int oper = 1;		//1 - "+", 0 - "-"
-		int dot = 0;	    //1 means dot product
-		float dot_result = 0;
-
-		vector<int> used_indices;	//placeholder for found words - later we will except them from the search
-
-		for (int i = 0; i < tokens.size(); i++) {
-			string &token = tokens[i];
-			if (token == "+") {
-				oper = 1;
-				continue;
-			}
-			if (token == "-") {
-				oper = -1;
-				continue;
-			}
-			if (token == "*") {
-				dot = 1;
-				continue;
-			}
-			int index = embed.find_case_sensitive(token);
-			if (index == -1) {
-				cout << "Unknown word '" << token << "'" << endl;
-				ok = 0;
-				break;
-			}
-
-			if (!dot) {
-				//add to vector
-				Vec.add(embed.vec[index], oper, false);
-				//store found index
-				used_indices.push_back(index);
-				//set operation to "+"
-				oper = 1;
-			}
-			else {
-				//perform dist_cos multiplication
-				Vec.update_normalized();
-				dot_result = Vec.dist_cosine_optimized(embed.vec[index]);
-			}
-		}
-		if (!ok) continue;
-
-		//Compute normalized version
-		Vec.update_normalized();
-
-		//Print resulted (unnormalized) vector
+		//Print vector to console
 		Vec.print_console("------------------\n", "---------------------");
 
-		//Request for dot, it's already stored in dot_result
-		if (dot) {
-			cout << "dist_cos: " << dot_result << endl;
-			continue;
-		}
+		//Search closest words in the neighbourhood	
+		if (!Vec.empty()) {
 
-
-		//Search resulted words in neighbourhood
-
-		int count = 5;
-		
-		vector<ofxWord2VecEmbeddingMatch> match = embed.match_cos(Vec, count, used_indices);
-		cout << "Result:" << endl;
-		for (int i = 0; i < match.size(); i++) {
-			cout << "    " << match[i].word << ": " << match[i].conf << endl;
+			int count = 5;
+			vector<ofxWord2VecEmbeddingMatch> match = embed.match_cos(Vec, count, used_indices);
+			cout << "Result:" << endl;
+			for (int i = 0; i < match.size(); i++) {
+				cout << "    " << match[i].word << ": " << match[i].conf << endl;
+			}
 		}
 	}
 	cout << "Exiting now..." << endl;

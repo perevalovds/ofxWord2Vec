@@ -212,3 +212,53 @@ vector<ofxWord2VecEmbeddingMatch> ofxWord2VecEmbedding::match_worst_cos(const of
 }
 
 //--------------------------------------------------------------
+//returns vector corresponding the arithmetics of words,
+//using " + " and " - ", such as 'bird', 'king - man + woman'
+//on error - returns empty vector (size==0)
+//used_indices - pass it if you need to know which words where used
+
+ofxWord2VecVector ofxWord2VecEmbedding::words_to_vec(const string &sentence, vector<int> *used_indices) {
+	if (used_indices) used_indices->clear();
+
+	vector<string> tokens = ofSplitString(sentence, " ");
+	if (tokens.empty()) {
+		return ofxWord2VecVector();
+	}
+
+
+	ofxWord2VecVector Vec(size);
+
+	//search words in vocabulary and summing to 'vec'
+	int oper = 1;		//1 - "+", 0 - "-"
+
+	for (int i = 0; i < tokens.size(); i++) {
+		string &token = tokens[i];
+		if (token == "+") {
+			oper = 1;
+			continue;
+		}
+		if (token == "-") {
+			oper = -1;
+			continue;
+		}
+		int index = find_case_sensitive(token);
+		if (index == -1) {
+			cout << "ofxWord2VecEmbedding: Unknown word '" << token << "'" << endl;
+			return ofxWord2VecVector();
+		}
+
+		//add to vector
+		Vec.add(vec[index], oper, false);
+		//store found index
+		if (used_indices) used_indices->push_back(index);
+		//set operation to "+"
+		oper = 1;
+	}
+
+	//normalize
+	Vec.update_normalized();
+
+	return Vec;
+}
+
+//--------------------------------------------------------------
