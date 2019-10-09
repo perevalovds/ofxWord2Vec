@@ -1,5 +1,11 @@
 #include "ofxWord2VecSorter.h"
 
+
+//--------------------------------------------------------------
+ofxWord2VecSorter::ofxWord2VecSorter(int size, bool descending) {
+	setup(size, descending);
+}
+
 //--------------------------------------------------------------
 void ofxWord2VecSorter::setup(int size, bool descending) {
 	if (!descending) setup_ascending(size);
@@ -29,13 +35,13 @@ void ofxWord2VecSorter::setup_() {
 }
 
 //--------------------------------------------------------------
-void ofxWord2VecSorter::push_value(int index, float value) {
+void ofxWord2VecSorter::push_value(int index, float value, const string &word) {
 	for (int a = 0; a < size; a++) {
 		if (items[a].empty() || (!descend && (value > items[a].value)) || (descend && (value < items[a].value))) {
 			for (int d = size - 1; d > a; d--) {
 				items[d] = items[d - 1];
 			}
-			items[a] = ofxWord2VecSorterItem(index, value);
+			items[a] = ofxWord2VecSorterItem(index, value, word);
 			break;
 		}
 	}

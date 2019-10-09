@@ -14,6 +14,8 @@ struct ofxWord2VecVector {
 	ofxWord2VecVector();
 	ofxWord2VecVector(int size);		//create vector allocated with its own memory
 
+	void copy_from(const ofxWord2VecVector &vec);
+
 	//allocate memory
 	void allocate(int size);
 
@@ -33,6 +35,7 @@ struct ofxWord2VecVector {
 	//Operations ------------------------------------------
 	//if you need to perform many operations with vector,
 	//discard 'auto_update_normalized' and call update_normalized() after operations
+
 
 	//set fixed value
 	void set(float value, bool auto_update_normalized = true);

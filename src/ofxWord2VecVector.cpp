@@ -21,6 +21,15 @@ void ofxWord2VecVector::allocate(int size) {
 }
 
 //--------------------------------------------------------------
+void ofxWord2VecVector::copy_from(const ofxWord2VecVector &vec) {
+	allocate(vec.size);
+	for (int i = 0; i < size; i++) {
+		v[i] = vec.v[i];
+		vn[i] = vec.vn[i];
+	}
+}
+
+//--------------------------------------------------------------
 //bind to existing array - very efficient way working with huge number of vectors
 void ofxWord2VecVector::bind(float *pointer_v, float *pointer_vn, int size) {
 	v = pointer_v;

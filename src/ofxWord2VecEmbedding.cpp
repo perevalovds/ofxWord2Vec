@@ -142,19 +142,8 @@ int ofxWord2VecEmbedding::find_case_insensitive(const string &word) {
 }
 
 //--------------------------------------------------------------
-vector<ofxWord2VecEmbeddingMatch> ofxWord2VecEmbedding::sorter_to_match(const vector<ofxWord2VecSorterItem> &items) {
-	vector<ofxWord2VecEmbeddingMatch> match(items.size());
-	for (int i = 0; i < items.size(); i++) {
-		auto &item = items[i];
-		match[i] = ofxWord2VecEmbeddingMatch(vocab[item.index], item.value, item.index);
-	}
-	return match;
-}
-
-
-//--------------------------------------------------------------
 //find best or worst mathcing words to a given vector in cosine distance
-vector<ofxWord2VecEmbeddingMatch> ofxWord2VecEmbedding::match_cos(const ofxWord2VecVector &v, int count,
+vector<ofxWord2VecSorterItem> ofxWord2VecEmbedding::match_cos(const ofxWord2VecVector &v, int count,
 	const vector<int> &except_words, bool descending) {
 	
 	ofxWord2VecSorter sorter;
@@ -173,10 +162,10 @@ vector<ofxWord2VecEmbeddingMatch> ofxWord2VecEmbedding::match_cos(const ofxWord2
 
 		//compute distance and compare with matched
 		float dist = vec[i].dist_cosine_optimized(v);
-		sorter.push_value(i, dist);
+		sorter.push_value(i, dist, vocab[i]);
 	}
 
-	return sorter_to_match(sorter.sorted());
+	return sorter.sorted();
 }
 
 //--------------------------------------------------------------

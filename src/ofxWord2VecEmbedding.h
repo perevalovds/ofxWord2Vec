@@ -6,20 +6,6 @@
 #include "ofxWord2VecVector.h"
 #include "ofxWord2VecSorter.h"
 
-//result for matching
-struct ofxWord2VecEmbeddingMatch {
-	string word;		//word name
-	int index = -1;		//word index
-	float conf = -2;	//confidence [-1..1]
-	ofxWord2VecEmbeddingMatch() {}
-	ofxWord2VecEmbeddingMatch(string word, float conf, int index) {
-		this->word = word;
-		this->conf = conf;
-		this->index = index;
-	}
-
-};
-
 //embedding class
 struct ofxWord2VecEmbedding {
 
@@ -54,13 +40,9 @@ struct ofxWord2VecEmbedding {
 
 	//find best or worst mathcing words to a given vector in cosine distance
 	//for worst case set descending = true
-	vector<ofxWord2VecEmbeddingMatch> match_cos(const ofxWord2VecVector &v, int count,
+	vector<ofxWord2VecSorterItem> match_cos(const ofxWord2VecVector &v, int count,
 		const vector<int> &except_words = vector<int>(), bool descending = false);
 
-
-	//Utilities ---------------------------------------------------
-	//Transform sorter data to match result
-	vector<ofxWord2VecEmbeddingMatch> sorter_to_match(const vector<ofxWord2VecSorterItem> &items);
 
 
 protected:
