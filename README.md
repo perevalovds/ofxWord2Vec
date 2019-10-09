@@ -45,5 +45,5 @@ Words: 71291, dimensions: 200. This file is fast to use and is recommended for f
 
 * Addon's github Releases tab contains ZIP file with "GoogleNews-vectors-negative300.bin" embedding 
 (Mikolov et al's GoogleNews model, https://code.google.com/archive/p/word2vec/). Words: 3 000 000, dimensions: 300.
-This is a huge file. It requires 8Gm in GPU (because we store original and normalized vectors).
+This is a huge file. It requires 8GB in CPU (because we store original and normalized vectors).
 It's works slow, but great.
