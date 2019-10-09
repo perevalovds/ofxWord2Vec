@@ -100,12 +100,20 @@ double ofxWord2VecVector::dist_cosine_optimized(const ofxWord2VecVector &vec) {
 
 //--------------------------------------------------------------
 //L2 distance
-double ofxWord2VecVector::dist_L2(const ofxWord2VecVector &vec) {
+double ofxWord2VecVector::dist_L2(const ofxWord2VecVector &vec, bool use_normalized) {
 	double res = 0;
 	float u;
-	for (int i = 0; i < size; i++) {
-		u = v[i] - vec.v[i];
-		res += u * u;
+	if (!use_normalized) {
+		for (int i = 0; i < size; i++) {
+			u = v[i] - vec.v[i];
+			res += u * u;
+		}
+	}
+	else {
+		for (int i = 0; i < size; i++) {
+			u = vn[i] - vec.vn[i];
+			res += u * u;
+		}
 	}
 	return sqrt(res);
 }

@@ -50,7 +50,7 @@ struct ofxWord2VecVector {
 	double dist_cosine_optimized(const ofxWord2VecVector &vec);
 
 	//L2 distance
-	double dist_L2(const ofxWord2VecVector &vec);
+	double dist_L2(const ofxWord2VecVector &vec, bool use_normalized = false);
 
 	//Utilities ------------------------------------------
 	void print_console(string title, string postscript="", int precision = 2);
