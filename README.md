@@ -41,7 +41,8 @@ Example is shipped with vec_text8.bin embeddings vectors obtained in the way des
 ## Embeddings files
 
 * Addon's example example_analogy contains embedding file vec_text8.bin made as described in base_code/demo-analogy.sh.
-About text corpus used for training this see http://mattmahoney.net/dc/textdata.html.
+About text corpus used for training this see http://mattmahoney.net/dc/textdata.html, 100000000 bytes from  English Wikipedia dump on Mar. 3, 2006.
+
 Words: 71291, dimensions: 200. This file is fast to use and is recommended for fast developing.
 
 * Addon's github Releases tab contains ZIP file with "GoogleNews-vectors-negative300.bin" embedding 
